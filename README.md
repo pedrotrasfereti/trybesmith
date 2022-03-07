@@ -29,8 +29,16 @@ _models_, _services_ and _controllers_. The additional Express _routes_ layer wa
 
 A list of all endpoints and supported methods.
 
-* **/login** - Using the `POST` HTTP method, allows the signed in user to login with their respective username and password.
+* **/login** - Using the `POST` HTTP method, allows the signed in user to login with the following JSON structure:
+```
+  {
+    "email": "example@mail.com",
+    "password": "123456"
+  }
+```
+
 The generated token should be used in the _Authorization_ header;
+
 * **/orders** - Using the `POST` HTTP method, allows the authenticated user to place an order with the following JSON structure:
 ```
   {
