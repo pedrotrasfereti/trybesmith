@@ -76,9 +76,10 @@ The user may also list all products using the `GET` HTTP method;
 
 The MySQL schema will contain three tables: **Users**, **Orders** and **Products**.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
+<br />
 
+---
 
 ### Built With
 
