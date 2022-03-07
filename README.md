@@ -81,6 +81,7 @@ List of major frameworks/libraries used to bootstrap this project:
 * [TypeScript](https://www.typescriptlang.org/)
 * [JWT](https://jwt.io/)
 * [MySQL](https://www.mysql.com/) - database
+* [Joi](https://joi.dev/) - error handling
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -135,7 +136,8 @@ Pedro Trasfereti - [LinkedIn](https://www.linkedin.com/in/pedro-trasfereti/) - p
 List of resources I find helpful and would like to give credit to:
 
 * [ESLint](https://eslint.org/) - javascript linter
-* [Joi](https://joi.dev/) - error handling
+* [Img Shields](https://shields.io) - readme
+* [Dotenv](https://www.npmjs.com/package/dotenv) - development
 * [Nodemon](https://nodemon.io/) - development
 
 <p align="right">(<a href="#top">back to top</a>)</p>
