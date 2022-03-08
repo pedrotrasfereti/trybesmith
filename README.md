@@ -119,9 +119,9 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm install
    ```
-3. Start the app with Yarn
+3. Start the server
    ```sh
-   yarn dev
+   npm start
    ```
 4. Visit `http://localhost:3000/` on your browser
 
