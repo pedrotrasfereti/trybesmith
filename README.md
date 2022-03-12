@@ -23,6 +23,14 @@ _models_, _services_ and _controllers_. The additional Express _routes_ layer wa
 
 <br />
 
+During the development I was able to:
+
+* Declare typed variables and functions using **Typescript**;
+* Build a Node and Express API using **Typescript**;
+* Read and write data to the database using **Prisma**;
+
+<br />
+
 ---
 
 ### Endpoints
@@ -89,6 +97,7 @@ List of major frameworks/libraries used to bootstrap this project:
 * [Node.js](https://nodejs.org/en/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [JWT](https://jwt.io/)
+* [Prisma](https://www.prisma.io/) - typescript orm
 * [MySQL](https://www.mysql.com/) - database
 * [Joi](https://joi.dev/) - error handling
 
