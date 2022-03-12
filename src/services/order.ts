@@ -4,7 +4,7 @@ import StatusCode from '../utils/statusCode';
 import CodeError from './error/CodeError';
 
 const create = async (userId: number, products: number[]) => {
-  const orderId = await orderModel.create(userId);
+  const { id: orderId } = await orderModel.create(userId);
 
   await productModel.sell(orderId, products);
 
@@ -19,14 +19,17 @@ const create = async (userId: number, products: number[]) => {
 const findByPk = async (orderId: number) => {
   const orderData = await orderModel.findByPk(orderId);
 
-  if (!orderData.id) {
+  if (!orderData) {
     throw Object.assign(new CodeError(
       order.notFound,
       StatusCode.NOT_FOUND,
     ));
   }
 
-  return orderData;
+  return {
+    ...orderData,
+    products: orderData.products.map((p) => p.id),
+  };
 };
 
 const findAll = async () => {

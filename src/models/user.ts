@@ -1,10 +1,5 @@
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
-import connection from './connection';
+import prisma from '../models/connection';
 import { IUser, ILogin, IPayload } from '../utils/interfaces';
-
-// query variables
-const tableName = 'Trybesmith.Users';
-const attributes = '(username,classe,level,password)';
 
 /**
  * Inserts a new user into the Users table
@@ -14,14 +9,12 @@ const attributes = '(username,classe,level,password)';
  * 
  */
 const create = async (newUser: IUser) => {
-  const { username, classe, level, password } = newUser;
+  const user = await prisma.user.create({
+    data: newUser,
+    select: { id: true, username: true }, // cli response
+  });
 
-  const [data] = await connection.execute<ResultSetHeader>(
-    `INSERT INTO ${tableName} ${attributes} VALUES (?, ?, ?, ?)`,
-    [username, classe, level, password],
-  );
-
-  return data.insertId;
+  return user;
 };
 
 /**
@@ -34,15 +27,20 @@ const create = async (newUser: IUser) => {
 const findByLogin = async (loginData: ILogin) => {
   const { username, password } = loginData;
 
-  const [data] = await connection.execute<RowDataPacket[]>(
-    `SELECT id, username FROM ${tableName} WHERE username = ? AND password = ?`,
-    [username, password],
-  );
-
-  // type casting
-  const [user] = data as unknown as IPayload[];
+  const user = await prisma.user.findFirst({
+    select: { id: true, username: true },
+    where: {
+      AND: {
+        username,
+        password,
+      },
+    },
+  });
 
   return user;
 };
 
-export default { create, findByLogin };
+export default {
+  create,
+  findByLogin,
+};

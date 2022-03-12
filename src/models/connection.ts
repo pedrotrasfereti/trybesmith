@@ -1,12 +1,14 @@
-import dotenv from 'dotenv';
-import mysql from 'mysql2/promise';
+import 'dotenv/config';
+import { PrismaClient } from '@prisma/client';
 
-dotenv.config();
+const { DATABASE_URL } = process.env;
 
-const connection = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: DATABASE_URL,
+    },
+  },
 });
 
-export default connection;
+export default prisma;

@@ -1,11 +1,5 @@
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import { IOrderProduct } from '../utils/interfaces';
-import { rowsToOrder, rowsToOrders } from '../utils/helpers';
-import connection from './connection';
-
-// query variables
-const tableName = 'Trybesmith.Orders';
-const attributes = '(userId)';
+import prisma from './connection';
 
 /**
  * Inserts a new order into the Orders table
@@ -15,12 +9,11 @@ const attributes = '(userId)';
  * 
  */
 const create = async (userId: number) => {
-  const [data] = await connection.execute<ResultSetHeader>(
-    `INSERT INTO ${tableName} ${attributes} VALUES (?)`,
-    [userId],
-  );
+  const order = await prisma.order.create({
+    data: { userId },
+  });
 
-  return data.insertId;
+  return order;
 };
 
 /**
@@ -31,31 +24,27 @@ const create = async (userId: number) => {
  * 
  */
 const findByPk = async (orderId: number) => {
-  const [data] = await connection.execute<RowDataPacket[]>(
-    `SELECT O.id, O.userId, P.id as products
-    FROM ${tableName} as O
-    JOIN Trybesmith.Products as P
-    ON O.id = P.orderId
-    WHERE O.id = ?`,
-    [orderId],
-  );
+  const order = await prisma.order.findUnique({
+    where: { id: Number(orderId) },
+    include: {
+      products: {
+        select: { id: true },
+      },
+    },
+  });
 
-  const rows = data as unknown as IOrderProduct[];
-  const orderData = rowsToOrder(rows);
-
-  return orderData;
+  return order;
 };
 
 const findAll = async () => {
-  const [data] = await connection.execute<RowDataPacket[]>(
-    `SELECT O.id, O.userId, P.id as products
-    FROM ${tableName} as O
-    JOIN Trybesmith.Products as P
-    ON O.id = P.orderId`,
-  );
+  const data = await prisma.order.findMany({
+    include: { products: { select: { id: true } } },
+  });
 
-  const rows = data as unknown as IOrderProduct[];
-  const orders = rowsToOrders(rows);
+  const orders = data.map((order) => ({
+    ...order,
+    products: order.products.map((p) => p.id),
+  }));
 
   return orders;
 };
