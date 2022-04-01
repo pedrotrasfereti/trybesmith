@@ -8,7 +8,7 @@ import { IUser, ILogin } from '../utils/interfaces';
  * @returns The insert id of the created user
  * 
  */
-const create = async (newUser: IUser) => await prisma.user.create({
+const create = async (newUser: IUser) => prisma.user.create({
   data: newUser,
   select: { id: true, username: true }, // cli response
 });
