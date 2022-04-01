@@ -7,11 +7,10 @@ import prisma from './prisma';
  * @returns The order's insert id
  * 
  */
-const create = async (userId: number) => {
-  return await prisma.order.create({
-    data: { userId },
-  });
-};
+const create = async (userId: number) => prisma.order.create({
+  data: { userId },
+});
+
 
 /**
  * Finds an order in the Order's table by the primary key
@@ -20,16 +19,14 @@ const create = async (userId: number) => {
  * @returns The order's data
  * 
  */
-const findByPk = async (orderId: number) => {
-  return await prisma.order.findUnique({
-    where: { id: Number(orderId) },
-    include: {
-      products: {
-        select: { id: true },
-      },
+const findByPk = async (orderId: number) => prisma.order.findUnique({
+  where: { id: Number(orderId) },
+  include: {
+    products: {
+      select: { id: true },
     },
-  });
-};
+  },
+});
 
 const findAll = async () => {
   const data = await prisma.order.findMany({

@@ -26,7 +26,7 @@ const create = async (newProduct: IProduct) => {
  * @returns All products in the Product's table
  * 
  */
-const findAll = async () => await prisma.product.findMany();
+const findAll = async () => prisma.product.findMany();
 
 const sell = async (orderId: number, products: number[]) => {
   const order = products.map(async (productId) => {

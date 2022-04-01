@@ -8,12 +8,11 @@ import { IUser, ILogin } from '../utils/interfaces';
  * @returns The insert id of the created user
  * 
  */
-const create = async (newUser: IUser) => {
-  return await prisma.user.create({
-    data: newUser,
-    select: { id: true, username: true }, // cli response
-  });
-};
+const create = async (newUser: IUser) => await prisma.user.create({
+  data: newUser,
+  select: { id: true, username: true }, // cli response
+});
+
 
 /**
  * Finds one user by their username and password
@@ -25,7 +24,7 @@ const create = async (newUser: IUser) => {
 const findByLogin = async (loginData: ILogin) => {
   const { username, password } = loginData;
 
-  return await prisma.user.findFirst({
+  return prisma.user.findFirst({
     select: { id: true, username: true },
     where: {
       AND: {

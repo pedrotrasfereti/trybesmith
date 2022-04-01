@@ -6,7 +6,7 @@ import { IUser } from '../utils/interfaces';
 import { validateUser } from '../utils/joi';
 import StatusCode from '../utils/statusCode';
 
-const createUserController: RequestHandler = rescue(async (req, res) => {
+const createUser: RequestHandler = rescue(async (req, res) => {
   const newUser: IUser = req.body;
 
   validateUser(newUser);
@@ -16,4 +16,4 @@ const createUserController: RequestHandler = rescue(async (req, res) => {
   res.status(StatusCode.CREATED).json({ token });
 });
 
-export default createUserController;
+export default createUser;
