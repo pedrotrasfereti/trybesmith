@@ -41,6 +41,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-rescue": "^1.1.31",
+    "helmet": "^5.0.2",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.0"

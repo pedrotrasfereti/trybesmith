@@ -1,6 +1,8 @@
 import express from 'express';
+import helmet from 'helmet';
 
 import { users, login, products, orders } from './routes';
+
 import {
   joiError,
   domainError,
@@ -8,6 +10,8 @@ import {
 } from './middlewares/error';
 
 const app = express(); // initialize server
+
+app.use(helmet.hidePoweredBy()); // fix security problem
 
 app.use(express.json()); // json
 
