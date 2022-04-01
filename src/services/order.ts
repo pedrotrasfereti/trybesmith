@@ -32,10 +32,7 @@ const findByPk = async (orderId: number) => {
   };
 };
 
-const findAll = async () => {
-  const orders = await orderModel.findAll();
-  return orders;
-};
+const findAll = async () => await orderModel.findAll();
 
 export default { create, findByPk, findAll };
 

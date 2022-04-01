@@ -1,10 +1,10 @@
-import userService from './user';
+import createUserService from './createUser';
 import loginService from './login';
 import productService from './product';
 import orderService from './order';
 
 export {
-  userService,
+  createUserService,
   loginService,
   productService,
   orderService,

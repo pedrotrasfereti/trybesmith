@@ -7,8 +7,7 @@ const login = async (loginData: ILogin) => {
 
   if (!userData) return false;
 
-  const token = sign(userData);
-  return token;
+  return sign(userData);
 };
 
 export default login;

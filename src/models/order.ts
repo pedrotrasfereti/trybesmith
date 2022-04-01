@@ -1,5 +1,4 @@
-import { IOrderProduct } from '../utils/interfaces';
-import prisma from './connection';
+import prisma from './prisma';
 
 /**
  * Inserts a new order into the Orders table
@@ -9,11 +8,9 @@ import prisma from './connection';
  * 
  */
 const create = async (userId: number) => {
-  const order = await prisma.order.create({
+  return await prisma.order.create({
     data: { userId },
   });
-
-  return order;
 };
 
 /**
@@ -24,7 +21,7 @@ const create = async (userId: number) => {
  * 
  */
 const findByPk = async (orderId: number) => {
-  const order = await prisma.order.findUnique({
+  return await prisma.order.findUnique({
     where: { id: Number(orderId) },
     include: {
       products: {
@@ -32,8 +29,6 @@ const findByPk = async (orderId: number) => {
       },
     },
   });
-
-  return order;
 };
 
 const findAll = async () => {
@@ -41,12 +36,10 @@ const findAll = async () => {
     include: { products: { select: { id: true } } },
   });
 
-  const orders = data.map((order) => ({
+  return data.map((order) => ({
     ...order,
     products: order.products.map((p) => p.id),
   }));
-
-  return orders;
 };
 
 export default { create, findByPk, findAll };

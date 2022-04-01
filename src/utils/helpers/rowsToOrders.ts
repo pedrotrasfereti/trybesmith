@@ -34,9 +34,9 @@ const groupByOrderId = (rows: IOrderProduct[]) => {
 const combineGroups = (groups: IOrderProduct[][]) => {
   const orders = [];
 
-  for (let i = 0; i < groups.length; i += 1) {
-    const products = groups[i].map((group) => group.products);
-    const firstOrder = groups[i][0];
+  for (let group of groups) {
+    const products = group.map((g) => g.products);
+    const firstOrder = group[0];
 
     orders.push({ ...firstOrder, products });
   }
@@ -54,9 +54,7 @@ const combineGroups = (groups: IOrderProduct[][]) => {
  */
 const rowsToOrders = (rows: IOrderProduct[]) => {
   const groups = groupByOrderId(rows);
-  const orders = combineGroups(groups);
-
-  return orders;
+  return combineGroups(groups);
 };
 
 export default rowsToOrders;

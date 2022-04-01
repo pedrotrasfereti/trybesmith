@@ -1,5 +1,5 @@
-import prisma from '../models/connection';
-import { IUser, ILogin, IPayload } from '../utils/interfaces';
+import prisma from './prisma';
+import { IUser, ILogin } from '../utils/interfaces';
 
 /**
  * Inserts a new user into the Users table
@@ -9,12 +9,10 @@ import { IUser, ILogin, IPayload } from '../utils/interfaces';
  * 
  */
 const create = async (newUser: IUser) => {
-  const user = await prisma.user.create({
+  return await prisma.user.create({
     data: newUser,
     select: { id: true, username: true }, // cli response
   });
-
-  return user;
 };
 
 /**
@@ -27,7 +25,7 @@ const create = async (newUser: IUser) => {
 const findByLogin = async (loginData: ILogin) => {
   const { username, password } = loginData;
 
-  const user = await prisma.user.findFirst({
+  return await prisma.user.findFirst({
     select: { id: true, username: true },
     where: {
       AND: {
@@ -36,8 +34,6 @@ const findByLogin = async (loginData: ILogin) => {
       },
     },
   });
-
-  return user;
 };
 
 export default {

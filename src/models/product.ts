@@ -1,4 +1,4 @@
-import prisma from './connection';
+import prisma from './prisma';
 import { IProduct } from '../utils/interfaces';
 
 /**
@@ -26,11 +26,7 @@ const create = async (newProduct: IProduct) => {
  * @returns All products in the Product's table
  * 
  */
-const findAll = async () => {
-  const data = await prisma.product.findMany();
-
-  return data;
-};
+const findAll = async () => await prisma.product.findMany();
 
 const sell = async (orderId: number, products: number[]) => {
   const order = products.map(async (productId) => {

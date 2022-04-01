@@ -2,13 +2,9 @@ import { productModel } from '../models';
 import Product from '../utils/interfaces/Product';
 
 const create = async (newProduct: Product) => {
-  const insertData = await productModel.create(newProduct);
-  return insertData;
+  return await productModel.create(newProduct);
 };
 
-const findAll = async () => {
-  const products = await productModel.findAll();
-  return products;
-};
+const findAll = async () => await productModel.findAll();
 
 export default { create, findAll };
